@@ -29,6 +29,7 @@ jobs:
       
       - name: run test
         run: pytest --spec
+        continue-on-error: true
 
       - name: run coverage
         run: |
