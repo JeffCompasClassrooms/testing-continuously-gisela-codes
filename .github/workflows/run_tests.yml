@@ -37,3 +37,22 @@ jobs:
           coverage report -m
         continue-on-error: true
 
+      - name: Checkout Systems repo
+        uses: actions/checkout@v4
+        with:
+          repository: JeffCompasClassrooms/testing-systems-gisela-codes
+          path: testing-systems-gisela-codes
+      
+      - name: Install dependencies
+        run: pip install pytest pytest-spec pytest-describe coverage
+      
+      - name: run test
+        run: pytest --spec
+        continue-on-error: true
+
+      - name: run coverage
+        run: |
+          coverage run -m pytest
+          coverage report -m
+        continue-on-error: true
+
