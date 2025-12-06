@@ -59,8 +59,8 @@ jobs:
       - name: Checkout Behave repo
         uses: actions/checkout@v4
         with:
-          repository: JeffCompasClassrooms/testing-with-behave-behave
-          path: JeffCompasClassrooms/testing-with-behave-behave
+          repository: JeffCompasClassrooms/testing-with-behave-gisela-codes/
+          path: JeffCompasClassrooms/testing-with-behave-gisela-codes/
       
       - name: Set up Python
         uses: actions/setup-python@v5
