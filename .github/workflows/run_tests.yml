@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: JeffCompasClassrooms/testing-systems-gisela-codes
-          path: testing-systems-gisela-codes
+          path: JeffCompasClassrooms/testing-systems-gisela-codes
       
       - name: Install dependencies
         run: pip install pytest pytest-spec pytest-describe coverage
