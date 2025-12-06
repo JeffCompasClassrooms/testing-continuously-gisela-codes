@@ -80,3 +80,15 @@ jobs:
       - name: Run Behave isitchristmas
         working-directory: isitchristmas
         run: behave
+
+      - name: Run Behave peppers-ghost
+        working-directory: peppers-ghost
+        run: behave
+        
+      - name: Run Behave time
+        working-directory: time
+        run: behave
+
+      - name: Run Behave peopleareinspace
+        working-directory: peopleareinspace
+        run: behave
