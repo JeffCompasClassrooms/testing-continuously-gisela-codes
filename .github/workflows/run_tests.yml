@@ -17,3 +17,20 @@ jobs:
         run: |
           echo "Running tests..."
           # replace this line with your actual test command(s)
+
+      - name: Checkout Units repo
+        uses: actions/checkout@v4
+        with:
+          repository: JeffCompasClassrooms/testing-units-f25-gisela-codes
+          path: JeffCompasClassrooms/testing-units-f25-gisela-codes
+      
+      - name: Install dependencies
+        run: pip install pytest pytest-spec pytest-describe coverage
+      
+      - name: run test
+        run: pytest --spec
+
+      - name: run coverage
+        run: |
+          coverage run -m pytest
+          coverage report -m
