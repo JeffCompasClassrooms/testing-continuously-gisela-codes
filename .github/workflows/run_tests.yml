@@ -61,7 +61,7 @@ jobs:
         with:
           repository: JeffCompasClassrooms/testing-with-behave-gisela-codes
           path: behave-repo
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -76,20 +76,13 @@ jobs:
       - name: Set up Chrome and ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: stable
+          install-chromedriver: true
+          install-dependencies: true
 
-      - name: Run Behave isitchristmas
-        working-directory: behave-repo/isitchristmas
-        run: behave
-
-      - name: Run Behave peppers-ghost
-        working-directory: behave-repo/peppers-ghost
-        run: behave
-        
-      - name: Run Behave time
-        working-directory: behave-repo/time
-        run: behave
-
-      - name: Run Behave peopleareinspace
-        working-directory: behave-repo/peopleareinspace
-        run: behave
+      - name: Run all Behave suites
+        working-directory: behave-repo
+        run: |
+          for dir in isitchristmas peppers-ghost time peopleareinspace; do
+            echo "Running Behave in $dir..."
+            (cd "$dir" && behave) || exit 1
+          done
