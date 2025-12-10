@@ -20,12 +20,13 @@ jobs:
       - name: Run tests
         working-directory: units
         run: pytest --spec
+        continue-on-error: true
+
       - name: Run coverage
         working-directory: units
         run: |
           coverage run -m pytest
           coverage report -m
-        continue-on-error: true
 
   systems:
     runs-on: ubuntu-latest
@@ -40,6 +41,8 @@ jobs:
       - name: Run tests
         working-directory: systems
         run: pytest --spec
+        continue-on-error: true
+
       - name: Run coverage
         working-directory: systems
         run: |
@@ -70,7 +73,7 @@ jobs:
           chrome-version: stable
       - name: Run Behave 
         run: |
-          python -m behave isitchristmas/features
-          python -m behave peppers-ghost/features
-          python -m behave time/features
-          python -m behave peopleareinspace/features
+          behave isitchristmas/features
+          behave peppers-ghost/features
+          behave time/features
+          behave primes/features
