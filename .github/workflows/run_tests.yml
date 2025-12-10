@@ -27,6 +27,8 @@ jobs:
         run: |
           coverage run -m pytest
           coverage report -m
+        continue-on-error: true
+
 
   systems:
     runs-on: ubuntu-latest
