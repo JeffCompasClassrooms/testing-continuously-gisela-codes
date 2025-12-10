@@ -5,81 +5,70 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  run-tests:
+  units:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # ---- your tests go here ----
-      - name: Run test for repo 
-        run: |
-          echo "Running tests..."
-          # replace this line with your actual test command(s)
-
       - name: Checkout Units repo
         uses: actions/checkout@v4
+
+              # ---- your tests go here ----
         with:
           repository: JeffCompasClassrooms/testing-units-f25-gisela-codes
-          path: JeffCompasClassrooms/testing-units-f25-gisela-codes
-      
+          path: units
       - name: Install dependencies
         run: pip install pytest pytest-spec pytest-describe coverage
-      
-      - name: run test
+      - name: Run tests
+        working-directory: units
         run: pytest --spec
-        continue-on-error: true
-
-      - name: run coverage
+      - name: Run coverage
+        working-directory: units
         run: |
           coverage run -m pytest
           coverage report -m
         continue-on-error: true
 
+  systems:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout Systems repo
         uses: actions/checkout@v4
         with:
           repository: JeffCompasClassrooms/testing-systems-gisela-codes
-          path: JeffCompasClassrooms/testing-systems-gisela-codes
-      
+          path: systems
       - name: Install dependencies
         run: pip install pytest pytest-spec pytest-describe coverage
-      
-      - name: run test
+      - name: Run tests
+        working-directory: systems
         run: pytest --spec
-        continue-on-error: true
-
-      - name: run coverage
+      - name: Run coverage
+        working-directory: systems
         run: |
           coverage run -m pytest
           coverage report -m
         continue-on-error: true
 
+  behave:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout Behave repo
         uses: actions/checkout@v4
         with:
           repository: JeffCompasClassrooms/testing-with-behave-gisela-codes
-          path: behave-repo
-      
+          path: behave
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-
       - name: Install dependencies
-        working-directory: behave-repo
+        working-directory: behave
         run: |
           python -m pip install --upgrade pip
           pip install behave==1.2.6 selenium==3.141.0 urllib3==1.26.15 behave-webdriver
-
-      - name: Set up Chrome + matching ChromeDriver
+      - name: Set up Chrome and ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
-      
-      - name: Run Behave tests
-        working-directory: behave-repo
+      - name: Run Behave 
         run: |
           python -m behave isitchristmas/features
           python -m behave peppers-ghost/features
